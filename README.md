@@ -1,4 +1,3 @@
-````
 # 🎯 Number Guesser Game
 
 A fun and interactive number guessing game built with **React**, **TypeScript**, **Tailwind CSS**, and **Framer Motion**.  
@@ -37,9 +36,9 @@ Follow these steps to run the game locally.
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/<your-username>/number-guesser.git
+git clone https://github.com/henry-mbamalu/number-guesser.git
 cd number-guesser
-````
+
 
 ### 2️⃣ Install Dependencies
 
