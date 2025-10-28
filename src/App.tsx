@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { motion } from "framer-motion";
 import './App.css'
 
 const App = () => {
@@ -85,7 +86,16 @@ const App = () => {
 
       <p className="mt-2 text-sm text-gray-600">Attempts left: {attemptsLeft}</p>
 
-      <p className="mt-4 text-lg">{message}</p>
+      <motion.p
+        key={message}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="mt-4 text-lg font-medium"
+      >
+        {message}
+      </motion.p>
+
 
       {gameOver && (
         <button
