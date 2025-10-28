@@ -34,6 +34,10 @@ const App = () => {
     setGuess("");
   };
 
+  const handleRestart = () => {
+    window.location.reload();
+  };
+
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
       <h1 className="text-3xl font-bold mb-4">Number Guesser</h1>
@@ -56,6 +60,15 @@ const App = () => {
       <p className="mt-2 text-sm text-gray-600">Attempts left: {attemptsLeft}</p>
 
       <p className="mt-4 text-lg">{message}</p>
+
+      {gameOver && (
+        <button
+          onClick={handleRestart}
+          className="mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+        >
+          Restart Game
+        </button>
+      )}
     </div>
   );
 };
