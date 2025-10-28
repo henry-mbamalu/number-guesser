@@ -5,22 +5,33 @@ const App = () => {
   const [secretNumber] = useState<number>(Math.floor(Math.random() * 100) + 1);
   const [guess, setGuess] = useState<string>("");
   const [message, setMessage] = useState<string>("");
+  const [attemptsLeft, setAttemptsLeft] = useState<number>(10);
+  const [gameOver, setGameOver] = useState<boolean>(false);
 
   const handleGuess = () => {
+    if (gameOver) return;
     const numGuess = Number(guess);
 
-    if (isNaN(numGuess)) {
-      setMessage("⚠️ Please enter a valid number!");
+    if (!numGuess || numGuess < 1 || numGuess > 100) {
+      setMessage("❌ Please enter a number between 1 and 100!");
       return;
     }
 
+    setAttemptsLeft((prev) => prev - 1);
+
     if (numGuess === secretNumber) {
-      setMessage("🎉 Correct! You guessed the number!");
+      setMessage("🎉 Correct! You won!");
+      setGameOver(true);
+    } else if (attemptsLeft <= 1) {
+      setMessage(`💀 Game over! The number was ${secretNumber}.`);
+      setGameOver(true);
     } else if (numGuess > secretNumber) {
-      setMessage("📉 Too high! Try again.");
+      setMessage("📉 Too high!");
     } else {
-      setMessage("📈 Too low! Try again.");
+      setMessage("📈 Too low!");
     }
+
+    setGuess("");
   };
 
   return (
@@ -41,6 +52,8 @@ const App = () => {
       >
         Guess
       </button>
+
+      <p className="mt-2 text-sm text-gray-600">Attempts left: {attemptsLeft}</p>
 
       <p className="mt-4 text-lg">{message}</p>
     </div>
