@@ -2,11 +2,23 @@ import { useState } from 'react'
 import './App.css'
 
 const App = () => {
+  const difficultySettings = { easy: 15, medium: 10, hard: 5 } as const;
+  type Difficulty = keyof typeof difficultySettings;
+
+  const [difficulty, setDifficulty] = useState<Difficulty>("medium");
+  const [attemptsLeft, setAttemptsLeft] = useState<number>(difficultySettings[difficulty]);
+
   const [secretNumber] = useState<number>(Math.floor(Math.random() * 100) + 1);
   const [guess, setGuess] = useState<string>("");
   const [message, setMessage] = useState<string>("");
-  const [attemptsLeft, setAttemptsLeft] = useState<number>(10);
   const [gameOver, setGameOver] = useState<boolean>(false);
+
+  const handleDifficultyChange = (level: Difficulty) => {
+    setDifficulty(level);
+    setAttemptsLeft(difficultySettings[level]);
+    setMessage("");
+    setGameOver(false);
+  };
 
   const handleGuess = () => {
     if (gameOver) return;
@@ -41,6 +53,20 @@ const App = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
       <h1 className="text-3xl font-bold mb-4">Number Guesser</h1>
+
+      <div className="flex gap-2 mb-4">
+        {(["easy", "medium", "hard"] as Difficulty[]).map((level) => (
+          <button
+            key={level}
+            onClick={() => handleDifficultyChange(level)}
+            className={`px-3 py-1 rounded capitalize ${difficulty === level ? "bg-blue-600 text-white" : "bg-gray-200 hover:bg-gray-300"
+              }`}
+          >
+            {level}
+          </button>
+        ))}
+      </div>
+
 
       <input
         type="number"
