@@ -9,13 +9,14 @@ const App = () => {
   const [difficulty, setDifficulty] = useState<Difficulty>("medium");
   const [attemptsLeft, setAttemptsLeft] = useState<number>(difficultySettings[difficulty]);
 
-  const [secretNumber] = useState<number>(Math.floor(Math.random() * 100) + 1);
+  const [secretNumber, setSecretNumber] = useState<number>(Math.floor(Math.random() * 100) + 1);
   const [guess, setGuess] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   const [gameOver, setGameOver] = useState<boolean>(false);
-
+  
   const handleDifficultyChange = (level: Difficulty) => {
     setDifficulty(level);
+    setSecretNumber(Math.floor(Math.random() * 100) + 1)
     setAttemptsLeft(difficultySettings[level]);
     setMessage("");
     setGameOver(false);
